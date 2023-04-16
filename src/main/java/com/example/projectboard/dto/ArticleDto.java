@@ -1,6 +1,7 @@
 package com.example.projectboard.dto;
 
 import com.example.projectboard.domain.Article;
+import com.example.projectboard.domain.UserAccount;
 
 import java.time.LocalDateTime;
 
@@ -32,10 +33,13 @@ public record ArticleDto(
                 entity.getModifiedBy()
         );
     }
+    public static ArticleDto of(UserAccountDto userAccountDto, String title, String content, String hashtag) {
+        return new ArticleDto(null, userAccountDto, title, content, hashtag, null, null, null, null);
+    }
 
-    public Article toEntity() {
+    public Article toEntity(UserAccount userAccount) {
         return Article.of(
-                userAccountDto.toEntity(),
+                userAccount,
                 title,
                 content,
                 hashtag
