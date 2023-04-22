@@ -66,6 +66,7 @@ class ArticleControllerTest {
                 .andExpect(view().name("articles/detail"))
                 .andExpect(model().attributeExists("article"))
                 .andExpect(model().attributeExists("articleComments"));
+
         then(articleService).should().getArticle(articleId);
     }
     @DisplayName("[view][GET] 게시글 리스트 (게시판) 페이지 - 페이징, 정렬 기능")
@@ -98,20 +99,6 @@ class ArticleControllerTest {
 
         then(articleService).should().searchArticles(null, null, pageable);
         then(paginationService).should().getPaginationBarNumbers(pageable.getPageNumber(), Page.empty().getTotalPages());
-    }
-
-    @DisplayName("View, GET 단일 게시판 정상 호출")
-    @Test
-    public void givenNoting_whenRequestArticleView_thenArticleView() throws Exception {
-        Long articleId = 1L;
-        given(articleService.getArticleWithComment(articleId)).willReturn(createArticleWithCommentsDto());
-        mvc.perform(get("/articles/"+articleId)).
-                andExpect(status().isOk()).
-                andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML)).
-                andExpect(view().name("articles/detail")).
-                andExpect(model().attributeExists("article")).
-                andExpect(model().attributeExists("articleComments"));
-        then(articleService).should().getArticle(articleId);
     }
     @DisplayName("View, GET 단일 게시판 검색어 포함 호출")
     @Test
