@@ -8,14 +8,18 @@ import java.util.stream.IntStream;
 @Service
 public class PaginationService {
 
-    private static final int Bar_Length = 5;
-    public List<Integer> getPaginationBarNumbers(int currentPageNumber, int totalPages){
-        int startNumber = Math.max(currentPageNumber-(Bar_Length/2),0);
-        int endNumber = Math.min(totalPages, startNumber+Bar_Length);
-        return IntStream.range(startNumber,endNumber).boxed().toList();
+    private static final int BAR_LENGTH = 5;
+
+
+    public List<Integer> getPaginationBarNumbers(int currentPageNumber, int totalPages) {
+        int startNumber = Math.max(currentPageNumber - (BAR_LENGTH / 2), 0);
+        int endNumber = Math.min(startNumber + BAR_LENGTH, totalPages);
+
+        return IntStream.range(startNumber, endNumber).boxed().toList();
     }
 
-        public int currentBarLength() {
-        return Bar_Length;
+    public int currentBarLength() {
+        return BAR_LENGTH;
     }
+
 }
